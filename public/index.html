@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ncypuff — Notes</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>ncypuff</h1>
+    <p class="tagline">your mini notes app</p>
+  </header>
+
+  <main>
+    <!-- New note form -->
+    <section class="new-note-section">
+      <form id="note-form">
+        <input
+          type="text"
+          id="note-title"
+          placeholder="Note title…"
+          maxlength="120"
+          required
+          autocomplete="off"
+        />
+        <textarea
+          id="note-body"
+          placeholder="Write something…"
+          rows="4"
+          maxlength="4000"
+        ></textarea>
+        <div class="form-footer">
+          <div class="color-picker" id="color-picker" aria-label="Pick note color">
+            <button type="button" class="color-swatch selected" data-color="#ffffff" style="background:#ffffff" aria-label="White"></button>
+            <button type="button" class="color-swatch" data-color="#fef9c3" style="background:#fef9c3" aria-label="Yellow"></button>
+            <button type="button" class="color-swatch" data-color="#dcfce7" style="background:#dcfce7" aria-label="Green"></button>
+            <button type="button" class="color-swatch" data-color="#dbeafe" style="background:#dbeafe" aria-label="Blue"></button>
+            <button type="button" class="color-swatch" data-color="#fce7f3" style="background:#fce7f3" aria-label="Pink"></button>
+            <button type="button" class="color-swatch" data-color="#ede9fe" style="background:#ede9fe" aria-label="Purple"></button>
+          </div>
+          <button type="submit" class="btn btn-primary">Add Note</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Search bar -->
+    <div class="search-bar">
+      <input type="search" id="search" placeholder="Search notes…" autocomplete="off" />
+    </div>
+
+    <!-- Notes grid -->
+    <section id="notes-grid" class="notes-grid" aria-live="polite"></section>
+
+    <!-- Empty state -->
+    <div id="empty-state" class="empty-state hidden">
+      <p>No notes yet. Add one above!</p>
+    </div>
+  </main>
+
+  <!-- Edit modal -->
+  <div id="edit-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-backdrop"></div>
+    <div class="modal-box">
+      <h2 id="modal-title">Edit Note</h2>
+      <form id="edit-form">
+        <input type="hidden" id="edit-id" />
+        <input type="text" id="edit-title" placeholder="Title…" maxlength="120" required />
+        <textarea id="edit-body" placeholder="Body…" rows="6" maxlength="4000"></textarea>
+        <div class="form-footer">
+          <div class="color-picker" id="edit-color-picker" aria-label="Pick note color">
+            <button type="button" class="color-swatch" data-color="#ffffff" style="background:#ffffff" aria-label="White"></button>
+            <button type="button" class="color-swatch" data-color="#fef9c3" style="background:#fef9c3" aria-label="Yellow"></button>
+            <button type="button" class="color-swatch" data-color="#dcfce7" style="background:#dcfce7" aria-label="Green"></button>
+            <button type="button" class="color-swatch" data-color="#dbeafe" style="background:#dbeafe" aria-label="Blue"></button>
+            <button type="button" class="color-swatch" data-color="#fce7f3" style="background:#fce7f3" aria-label="Pink"></button>
+            <button type="button" class="color-swatch" data-color="#ede9fe" style="background:#ede9fe" aria-label="Purple"></button>
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="btn btn-ghost" id="cancel-edit">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
