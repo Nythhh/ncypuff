@@ -1,0 +1,231 @@
+/* ── reset / base ───────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #f9fafb;
+  --surface: #ffffff;
+  --border: #e5e7eb;
+  --text: #111827;
+  --muted: #6b7280;
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --danger: #ef4444;
+  --danger-hover: #dc2626;
+  --radius: 12px;
+  --shadow: 0 1px 4px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.06);
+  --transition: .15s ease;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* ── header ─────────────────────────────────────────────── */
+header {
+  text-align: center;
+  padding: 2.5rem 1rem 1rem;
+}
+header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -.5px;
+  color: var(--primary);
+}
+header .tagline {
+  color: var(--muted);
+  font-size: .9rem;
+  margin-top: .25rem;
+}
+
+/* ── main layout ────────────────────────────────────────── */
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 4rem;
+}
+
+/* ── form ───────────────────────────────────────────────── */
+.new-note-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  box-shadow: var(--shadow);
+  margin-bottom: 1.25rem;
+}
+
+input[type="text"], input[type="search"], textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: .6rem .8rem;
+  font-size: .95rem;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--bg);
+  transition: border-color var(--transition), box-shadow var(--transition);
+  outline: none;
+}
+input[type="text"]:focus, input[type="search"]:focus, textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99,102,241,.15);
+}
+
+#note-title, #edit-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: .75rem;
+}
+
+textarea { resize: vertical; margin-bottom: .75rem; }
+
+.form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  flex-wrap: wrap;
+}
+
+/* ── color picker ───────────────────────────────────────── */
+.color-picker { display: flex; gap: .4rem; flex-wrap: wrap; }
+.color-swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  cursor: pointer;
+  transition: transform var(--transition), border-color var(--transition);
+}
+.color-swatch:hover { transform: scale(1.15); }
+.color-swatch.selected { border-color: var(--primary); transform: scale(1.15); }
+
+/* ── buttons ────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .5rem 1.1rem;
+  border-radius: 8px;
+  font-size: .9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background var(--transition), opacity var(--transition);
+}
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--primary-hover); }
+.btn-ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+.btn-ghost:hover { background: var(--bg); }
+.btn-danger { background: var(--danger); color: #fff; }
+.btn-danger:hover { background: var(--danger-hover); }
+
+/* ── search ─────────────────────────────────────────────── */
+.search-bar { margin-bottom: 1.25rem; }
+.search-bar input { background: var(--surface); }
+
+/* ── notes grid ─────────────────────────────────────────── */
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+/* ── note card ──────────────────────────────────────────── */
+.note-card {
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 1rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  position: relative;
+  transition: box-shadow var(--transition), transform var(--transition);
+  word-break: break-word;
+}
+.note-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.12); transform: translateY(-1px); }
+
+.note-card.pinned::before {
+  content: '📌';
+  position: absolute;
+  top: .5rem;
+  right: .5rem;
+  font-size: .9rem;
+}
+
+.note-title {
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.3;
+  padding-right: 1.4rem; /* room for pin icon */
+}
+.note-body {
+  font-size: .875rem;
+  color: var(--muted);
+  white-space: pre-wrap;
+  flex: 1;
+  max-height: 8rem;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent);
+  mask-image: linear-gradient(to bottom, black 60%, transparent);
+}
+.note-body:empty { display: none; }
+
+.note-meta {
+  font-size: .75rem;
+  color: #9ca3af;
+}
+
+.note-actions {
+  display: flex;
+  gap: .4rem;
+  margin-top: .25rem;
+}
+.note-actions .btn { padding: .35rem .7rem; font-size: .8rem; flex: 1; }
+
+/* ── empty state ────────────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--muted);
+}
+
+/* ── modal ──────────────────────────────────────────────── */
+.modal { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; }
+.modal.hidden { display: none; }
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.4);
+  backdrop-filter: blur(2px);
+}
+.modal-box {
+  position: relative;
+  z-index: 1;
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  width: min(480px, 92vw);
+  box-shadow: 0 20px 60px rgba(0,0,0,.2);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.modal-box h2 { font-size: 1.2rem; }
+
+.modal-actions { display: flex; gap: .5rem; justify-content: flex-end; }
+
+/* ── utility ────────────────────────────────────────────── */
+.hidden { display: none !important; }
+
+/* ── responsive ─────────────────────────────────────────── */
+@media (max-width: 480px) {
+  header h1 { font-size: 1.5rem; }
+  .notes-grid { grid-template-columns: 1fr; }
+}
